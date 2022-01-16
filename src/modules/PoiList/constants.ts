@@ -6,7 +6,7 @@ import { ListOfPOI, Poi } from "../../api/apiModels";
 
 export interface PoiListProps {
   listOfPoi: ListOfPOI;
-  Icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
+  Icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
     muiName: string;
   };
   buttonHandler: (index: number) => void;

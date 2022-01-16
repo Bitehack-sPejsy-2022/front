@@ -25,9 +25,9 @@ const MapPage = ({ history }: RouteComponentProps) => {
     postPoiBySelected({
       list_of_points: selectedPoi.map((poi) => ({ lat: poi.latitude, lng: poi.longitude })),
     }).then((result) => {
-      setPoi(result.data);
+      setPoi(result.data.list_of_poi);
       // setShouldFly(true);
-      console.log(result.data);
+      console.log(result.data.list_of_poi);
     });
   };
 

@@ -13,11 +13,13 @@ const PoiList = ({ listOfPoi, Icon, buttonHandler }: PoiListProps) => {
       <P.Image>Obraz</P.Image>
       <P.Name>{poi.name}</P.Name>
       <P.Category>{poi.category}</P.Category>
-      <P.Button>
-        <IconButton aria-label="add" size="large" onClick={() => buttonHandler(i)}>
-          <Icon fontSize="inherit" />
-        </IconButton>
-      </P.Button>
+      {Icon && (
+        <P.Button>
+          <IconButton aria-label="add" size="large" onClick={() => buttonHandler(i)}>
+            <Icon fontSize="inherit" />
+          </IconButton>
+        </P.Button>
+      )}
     </P.ListElement>
   ));
 

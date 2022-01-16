@@ -10,6 +10,7 @@ import MapIcon from "@mui/icons-material/Map";
 import { PathListWrapper, PathSettingsWrapper, PoiListWrapper, RoutePageWrapper } from "./parts";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import PoiSettingsList from "../../modules/PoiSettingsList/PoiSettingsList";
+import PoiList from "../../modules/PoiList/PoiList";
 
 const RoutePage = ({ history }: RouteComponentProps) => {
   const [trips, setTrips] = useState<RecommendedTrips>();
@@ -154,6 +155,10 @@ const RoutePage = ({ history }: RouteComponentProps) => {
               </Button>
             );
           })}
+          <PoiList
+            listOfPoi={trips.trips[trip].list_of_poi.list_of_poi.map((timedPoi) => timedPoi.poi)}
+            buttonHandler={(i) => {}}
+          />
         </PathListWrapper>
       )}
       <PathDisplay
