@@ -9,7 +9,7 @@ import { CityChoosePoiWrapper, PoiListWrapper } from "./parts";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import PublishIcon from "@mui/icons-material/Publish";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 
 const MapPage = ({ history }: RouteComponentProps) => {
   const [poi, setPoi] = useState<ListOfPOI>([]);
@@ -19,13 +19,16 @@ const MapPage = ({ history }: RouteComponentProps) => {
     [0, 0],
   ]);
   const [shouldFly, setShouldFly] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     console.log((history.location.state as { cityName: string }).cityName);
     getPoiByCityName((history.location.state as { cityName: string }).cityName).then((result) => {
       setPoi(result.data.list_of_poi);
       // setShouldFly(true);
       console.log(result.data.list_of_poi);
+      setIsLoading(false);
     });
   }, []);
 
@@ -42,24 +45,26 @@ const MapPage = ({ history }: RouteComponentProps) => {
       close_hour: 0,
     };
     setSelectedPoi((oldPoi) => [...oldPoi, newPoi]);
-    postSearchNearPoint(latlng, (history.location.state as { cityName: string }).cityName).then((result) => {
-      const listOfPoi = result.data.list_of_poi;
-      console.log(listOfPoi);
-      if (listOfPoi.length) {
-        const newPoi: Poi = {
-          name: listOfPoi[0].name,
-          description: listOfPoi[0].description,
-          latitude: listOfPoi[0].latitude,
-          longitude: listOfPoi[0].longitude,
-          address: listOfPoi[0].address,
-          category: listOfPoi[0].category,
-          picture_url: listOfPoi[0].picture_url,
-          open_hour: listOfPoi[0].open_hour,
-          close_hour: listOfPoi[0].close_hour,
-        };
-        setSelectedPoi((oldPoi) => [...oldPoi.slice(0, -1), newPoi]);
-      }
-    });
+    postSearchNearPoint(latlng, (history.location.state as { cityName: string }).cityName).then(
+      (result) => {
+        const listOfPoi = result.data.list_of_poi;
+        console.log(listOfPoi);
+        if (listOfPoi.length) {
+          const newPoi: Poi = {
+            name: listOfPoi[0].name,
+            description: listOfPoi[0].description,
+            latitude: listOfPoi[0].latitude,
+            longitude: listOfPoi[0].longitude,
+            address: listOfPoi[0].address,
+            category: listOfPoi[0].category,
+            picture_url: listOfPoi[0].picture_url,
+            open_hour: listOfPoi[0].open_hour,
+            close_hour: listOfPoi[0].close_hour,
+          };
+          setSelectedPoi((oldPoi) => [...oldPoi.slice(0, -1), newPoi]);
+        }
+      },
+    );
   };
 
   const afterFlyHandler = () => {
@@ -87,12 +92,13 @@ const MapPage = ({ history }: RouteComponentProps) => {
           variant="contained"
           endIcon={<PublishIcon />}
           size={"large"}
-          onClick={() =>
-            history.push("/route", [
-              selectedPoi,
-              (history.location.state as { cityName: string }).cityName,
-            ])
-          }
+          onClick={() => {
+            if (selectedPoi.length)
+              history.push("/route", [
+                selectedPoi,
+                (history.location.state as { cityName: string }).cityName,
+              ]);
+          }}
         >
           Potwierdź punkty
         </Button>
@@ -104,7 +110,11 @@ const MapPage = ({ history }: RouteComponentProps) => {
         />
 
         <div>Sugerowane punkty</div>
-        <PoiList listOfPoi={poi} Icon={AddIcon} buttonHandler={addToSelectedHandler} />
+        {isLoading ? (
+          <CircularProgress style={{ margin: "100px auto", width: "100px", height: "100px" }} />
+        ) : (
+          <PoiList listOfPoi={poi} Icon={AddIcon} buttonHandler={addToSelectedHandler} />
+        )}
       </PoiListWrapper>
       <MapDisplay
         listOfPoi={selectedPoi}

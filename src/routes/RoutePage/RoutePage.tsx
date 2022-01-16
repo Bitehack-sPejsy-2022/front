@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import { BoundsLiteral, LatLng } from "leaflet";
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router";
@@ -16,6 +16,7 @@ import TripList from "../../modules/TripList/TripList";
 const RoutePage = ({ history }: RouteComponentProps) => {
   const [trips, setTrips] = useState<RecommendedTrips>();
   const [shouldFly, setShouldFly] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [trip, setTrip] = useState<number>(0);
   const [startTime, setStartTime] = useState(new Date("2022-01-15T09:00:00"));
   const [endTime, setEndTime] = useState(new Date("2022-01-15T21:00:00"));
@@ -79,6 +80,7 @@ const RoutePage = ({ history }: RouteComponentProps) => {
       number_of_trips: 1,
       city: (history.location.state as [ListOfPOI, string])[1],
     };
+    setIsLoading(true);
     const tripRequest: PlanTripRequest = {
       chosen_pois: {
         list_of_poi: (history.location.state as [ListOfPOI, string])[0].map((poi, i) => ({
@@ -95,6 +97,7 @@ const RoutePage = ({ history }: RouteComponentProps) => {
       console.log(result.data);
       setTrips(result.data);
       setShouldFly(true);
+      setIsLoading(false);
     });
   };
 
@@ -104,7 +107,9 @@ const RoutePage = ({ history }: RouteComponentProps) => {
 
   return (
     <RoutePageWrapper>
-      {!trips ? (
+      {isLoading ? (
+        <CircularProgress style={{ margin: "100px auto", width: "100px", height: "100px" }} />
+      ) : !trips ? (
         <PoiListWrapper>
           <Button
             variant="contained"

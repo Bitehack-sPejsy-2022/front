@@ -9,7 +9,7 @@ import { MapChoosePoiWrapper, PoiListWrapper } from "./parts";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import PublishIcon from "@mui/icons-material/Publish";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 
 const MapPage = ({ history }: RouteComponentProps) => {
   const [poi, setPoi] = useState<ListOfPOI>([]);
@@ -19,8 +19,10 @@ const MapPage = ({ history }: RouteComponentProps) => {
     [0, 0],
   ]);
   const [shouldFly, setShouldFly] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getSuggestedPoi = () => {
+    setIsLoading(true);
     console.log(selectedPoi.map((poi) => ({ lat: poi.latitude, lng: poi.longitude })));
     postPoiBySelected({
       list_of_points: selectedPoi.map((poi) => ({ lat: poi.latitude, lng: poi.longitude })),
@@ -28,6 +30,7 @@ const MapPage = ({ history }: RouteComponentProps) => {
       setPoi(result.data.list_of_poi);
       // setShouldFly(true);
       console.log(result.data.list_of_poi);
+      setIsLoading(false);
     });
   };
 
@@ -89,7 +92,9 @@ const MapPage = ({ history }: RouteComponentProps) => {
           variant="contained"
           endIcon={<PublishIcon />}
           size={"large"}
-          onClick={() => history.push("/route", [selectedPoi, ""])}
+          onClick={() => {
+            if (selectedPoi.length) history.push("/route", [selectedPoi, ""]);
+          }}
         >
           Potwierdź punkty
         </Button>
@@ -101,7 +106,11 @@ const MapPage = ({ history }: RouteComponentProps) => {
         />
 
         <div>Sugerowane punkty</div>
-        <PoiList listOfPoi={poi} Icon={AddIcon} buttonHandler={addToSelectedHandler} />
+        {isLoading ? (
+          <CircularProgress style={{ margin: "100px auto", width: "100px", height: "100px" }} />
+        ) : (
+          <PoiList listOfPoi={poi} Icon={AddIcon} buttonHandler={addToSelectedHandler} />
+        )}
         <Button variant="contained" size={"large"} onClick={() => getSuggestedPoi()}>
           Zasugeruj punkty
         </Button>
