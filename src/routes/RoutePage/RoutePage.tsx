@@ -15,8 +15,8 @@ const RoutePage = ({ history }: RouteComponentProps) => {
   const [trips, setTrips] = useState<RecommendedTrips>();
   const [shouldFly, setShouldFly] = useState(false);
   const [trip, setTrip] = useState<number>(0);
-  const [startTime, setStartTime] = useState(new Date("2014-08-18T21:11:54"));
-  const [endTime, setEndTime] = useState(new Date("2014-08-18T21:11:54"));
+  const [startTime, setStartTime] = useState(new Date("2022-01-15T09:00:00"));
+  const [endTime, setEndTime] = useState(new Date("2022-01-15T21:00:00"));
   const [numberOfTrips, setNumberOfTrips] = useState(1);
   const [times, setTimes] = useState(
     new Array((history.location.state as ListOfPOI).length).fill(1),
