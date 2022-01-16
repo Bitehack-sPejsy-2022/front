@@ -44,7 +44,7 @@ const MapPage = ({ history }: RouteComponentProps) => {
       close_hour: 0,
     };
     setSelectedPoi((oldPoi) => [...oldPoi, newPoi]);
-    postSearchNearPoint(latlng).then((result) => {
+    postSearchNearPoint(latlng, "").then((result) => {
       const listOfPoi = result.data.list_of_poi;
       console.log(listOfPoi);
       if (listOfPoi.length) {
