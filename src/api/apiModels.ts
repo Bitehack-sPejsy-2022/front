@@ -39,6 +39,7 @@ export interface PlanTripRequest {
   start_time: string;
   end_time: string;
   number_of_trips: number;
+  city: string;
 }
 
 export {};

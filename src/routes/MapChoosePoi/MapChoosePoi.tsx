@@ -89,7 +89,7 @@ const MapPage = ({ history }: RouteComponentProps) => {
           variant="contained"
           endIcon={<PublishIcon />}
           size={"large"}
-          onClick={() => history.push("/route", selectedPoi)}
+          onClick={() => history.push("/route", [selectedPoi, ""])}
         >
           Potwierdź punkty
         </Button>

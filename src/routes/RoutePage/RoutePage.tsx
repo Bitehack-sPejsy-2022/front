@@ -20,7 +20,7 @@ const RoutePage = ({ history }: RouteComponentProps) => {
   const [endTime, setEndTime] = useState(new Date("2022-01-15T21:00:00"));
   const [numberOfTrips, setNumberOfTrips] = useState(1);
   const [times, setTimes] = useState(
-    new Array((history.location.state as ListOfPOI).length).fill(1),
+    new Array((history.location.state as [ListOfPOI, string])[0].length).fill(1),
   );
 
   console.log(history);
@@ -76,10 +76,11 @@ const RoutePage = ({ history }: RouteComponentProps) => {
       start_time: "2022-01-15T07:00:00Z",
       end_time: "2022-01-15T20:00:00Z",
       number_of_trips: 1,
+      city: (history.location.state as [ListOfPOI, string])[1],
     };
     const tripRequest: PlanTripRequest = {
       chosen_pois: {
-        list_of_poi: (history.location.state as ListOfPOI).map((poi, i) => ({
+        list_of_poi: (history.location.state as [ListOfPOI, string])[0].map((poi, i) => ({
           poi,
           time_spent: times[i],
         })),
@@ -87,6 +88,7 @@ const RoutePage = ({ history }: RouteComponentProps) => {
       start_time: startTime.toISOString(),
       end_time: endTime.toISOString(),
       number_of_trips: numberOfTrips,
+      city: (history.location.state as [ListOfPOI, string])[1],
     };
     postPlanTrip(tripRequest).then((result) => {
       console.log(result.data);
@@ -135,7 +137,7 @@ const RoutePage = ({ history }: RouteComponentProps) => {
             />
           </PathSettingsWrapper>
           <PoiSettingsList
-            listOfPoi={history.location.state as ListOfPOI}
+            listOfPoi={(history.location.state as [ListOfPOI, string])[0]}
             time={times}
             setTime={(time, i) =>
               setTimes((old) => {
