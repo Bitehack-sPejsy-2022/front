@@ -7,6 +7,8 @@ const App: React.FC = () => (
   <>
     <Switch>
       <Route exact path="/" component={routes.HomePage} />
+      <Route exact path="/citychoose" component={routes.CityChoosePoi} />
+      <Route exact path="/route" component={routes.RoutePage} />
       {/* <Route component={routes.404} /> */}
     </Switch>
   </>
