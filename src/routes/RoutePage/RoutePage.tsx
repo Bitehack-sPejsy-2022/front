@@ -11,6 +11,7 @@ import { PathListWrapper, PathSettingsWrapper, PoiListWrapper, RoutePageWrapper 
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import PoiSettingsList from "../../modules/PoiSettingsList/PoiSettingsList";
 import PoiList from "../../modules/PoiList/PoiList";
+import TripList from "../../modules/TripList/TripList";
 
 const RoutePage = ({ history }: RouteComponentProps) => {
   const [trips, setTrips] = useState<RecommendedTrips>();
@@ -157,10 +158,7 @@ const RoutePage = ({ history }: RouteComponentProps) => {
               </Button>
             );
           })}
-          <PoiList
-            listOfPoi={trips.trips[trip].list_of_poi.list_of_poi.map((timedPoi) => timedPoi.poi)}
-            buttonHandler={(i) => {}}
-          />
+          <TripList trip={trips.trips[trip]} />
         </PathListWrapper>
       )}
       <PathDisplay

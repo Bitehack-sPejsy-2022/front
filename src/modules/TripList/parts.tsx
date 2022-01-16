@@ -34,7 +34,8 @@ export const Image = styled.div`
 `;
 
 export const ListWrapper = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: column;
   grid-gap: 4px;
   grid-auto-rows: 1fr;
   height: 100%;
@@ -45,7 +46,7 @@ export const ListWrapper = styled.div`
 export const ListElement = styled.div`
   display: grid;
   grid-template-rows: 1fr 1fr;
-  grid-template-columns: 100px 1fr 52px;
+  grid-template-columns: 100px 1fr 80px;
   width: 100%;
   height: 100px;
   grid-template-areas:
@@ -53,4 +54,10 @@ export const ListElement = styled.div`
     "image category button";
   border: 1px solid #aaa;
   border-radius: 4px;
+`;
+
+export const Movement = styled.div`
+  border-left: 3px dashed #333;
+  margin-left: 50px;
+  padding: 8px;
 `;

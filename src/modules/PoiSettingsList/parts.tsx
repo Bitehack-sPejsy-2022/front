@@ -26,6 +26,11 @@ export const Button = styled.div`
 
 export const Image = styled.div`
   grid-area: image;
+  width: 100px;
+  height: 150px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 export const Text = styled.div`
