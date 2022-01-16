@@ -11,3 +11,6 @@ export const postSearchNearPoint = (latlng: LatLng) =>
 
 export const postPlanTrip = (tripRequest: apiModels.PlanTripRequest) =>
   apiInstance.post<apiModels.RecommendedTrips>(paths.getPlannedTrips, tripRequest);
+
+export const postPoiBySelected = (selected: { list_of_points: { lat: number; lng: number }[] }) =>
+  apiInstance.post<apiModels.ListOfPOI>(paths.getPlannedTrips, selected);

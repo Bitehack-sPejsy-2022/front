@@ -39,6 +39,10 @@ const HomePage = ({ history }: RouteComponentProps) => {
             endIcon={<MapIcon />}
             size={"large"}
             style={{ padding: "24px 32px", marginTop: "56px" }}
+            onClick={() => {
+              console.log(cityName);
+              history.push("/mapchoose");
+            }}
           >
             Wybierz punkty na mapie
           </Button>
