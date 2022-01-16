@@ -153,7 +153,15 @@ const RoutePage = ({ history }: RouteComponentProps) => {
         <PathListWrapper>
           {trips.trips.map((trip, i) => {
             return (
-              <Button key={i} variant="contained" size={"large"} onClick={() => setTrip(i)}>
+              <Button
+                key={i}
+                variant="contained"
+                size={"large"}
+                onClick={() => {
+                  setTrip(i);
+                  setShouldFly(true);
+                }}
+              >
                 Trasa {i + 1}
               </Button>
             );
