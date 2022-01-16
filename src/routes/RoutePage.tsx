@@ -63,7 +63,7 @@ const RoutePage = ({ history }: RouteComponentProps) => {
       },
       start_time: "2022-01-15T07:00:00Z",
       end_time: "2022-01-15T20:00:00Z",
-      number_of_trips: 5,
+      number_of_trips: 1,
     };
     const tripRequest: PlanTripRequest = {
       chosen_pois: {
@@ -71,7 +71,7 @@ const RoutePage = ({ history }: RouteComponentProps) => {
       },
       start_time: "2022-01-15T07:00:00Z",
       end_time: "2022-01-15T20:00:00Z",
-      number_of_trips: 5,
+      number_of_trips: 1,
     };
     postPlanTrip(tripRequest).then((result) => {
       console.log(result.data);
@@ -84,6 +84,13 @@ const RoutePage = ({ history }: RouteComponentProps) => {
     setShouldFly(false);
   };
 
-  return <PathDisplay recommendedTrips={trips} trip={trip} />;
+  return (
+    <PathDisplay
+      recommendedTrips={trips}
+      trip={trip}
+      afterFly={afterFlyHandler}
+      shouldFly={shouldFly}
+    />
+  );
 };
 export default withRouter(RoutePage);

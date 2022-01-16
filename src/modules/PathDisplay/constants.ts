@@ -4,4 +4,6 @@ import { ListOfPOI, ListOfTimedPois, Poi, RecommendedTrips } from "../../api/api
 export interface PathDisplayProps {
   recommendedTrips?: RecommendedTrips;
   trip: number;
+  afterFly: () => void;
+  shouldFly: boolean;
 }

@@ -13,7 +13,7 @@ import { Trip } from "../../api/apiModels";
 import { PathDisplayProps } from "./constants";
 import * as P from "./parts";
 
-const PathDisplay = ({ recommendedTrips, trip }: PathDisplayProps) => {
+const PathDisplay = ({ recommendedTrips, trip, afterFly, shouldFly }: PathDisplayProps) => {
   const defaultPosition: LatLngTuple = [50.056, 19.93];
 
   console.log(recommendedTrips);
@@ -37,12 +37,21 @@ const PathDisplay = ({ recommendedTrips, trip }: PathDisplayProps) => {
 
   return (
     <MapContainer
-      // bounds={recommendedTrips?.trips[trip].bounds
+      // bounds={recommendedTrips?.trips[trip].bounds}
       center={defaultPosition}
       zoom={12}
       scrollWheelZoom
       style={{ height: "100vh" }}
     >
+      {shouldFly && recommendedTrips && (
+        <MapConsumer>
+          {(map) => {
+            map.flyToBounds(recommendedTrips.trips[trip].bounds);
+            afterFly();
+            return null;
+          }}
+        </MapConsumer>
+      )}
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -50,13 +59,13 @@ const PathDisplay = ({ recommendedTrips, trip }: PathDisplayProps) => {
       {markers}
       {recommendedTrips?.trips.length &&
         (() => {
-          const purpleOptions = { color: "purple" };
+          const colorOptions = { color: "red", weight: 6 };
           const polyline = recommendedTrips.trips[trip].route.map(({ lat, lng }) => ({
             lat,
             lng,
           }));
           console.log(polyline);
-          return <Polyline pathOptions={purpleOptions} positions={polyline} />;
+          return <Polyline pathOptions={colorOptions} positions={polyline} />;
         })()}
     </MapContainer>
   );
