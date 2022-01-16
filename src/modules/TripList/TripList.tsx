@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, MapConsumer } fro
 import { TripListProps } from "./constants";
 import * as P from "./parts";
 import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
+import AttractionsIcon from "@mui/icons-material/Attractions";
 
 const TripList = ({ trip }: TripListProps) => {
   console.log(trip);
@@ -35,11 +36,15 @@ const TripList = ({ trip }: TripListProps) => {
       )}
       <P.ListElement key={i}>
         <P.Image>
-          <img
-            src={timedPoi.poi.picture_url}
-            alt="Brak zdjęcia"
-            style={{ width: "100px", height: "100px" }}
-          />
+          {timedPoi.poi.picture_url ? (
+            <img
+              src={timedPoi.poi.picture_url}
+              alt="Brak zdjęcia"
+              style={{ width: "100px", height: "100px" }}
+            />
+          ) : (
+            <AttractionsIcon style={{ width: "100px", height: "100px" }} />
+          )}
         </P.Image>
         <P.Name>{timedPoi.poi.name}</P.Name>
         <P.Category>{timedPoi.poi.category}</P.Category>
