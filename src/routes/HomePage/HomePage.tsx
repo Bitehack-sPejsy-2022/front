@@ -11,7 +11,7 @@ const HomePage = ({ history }: RouteComponentProps) => {
     <>
       <Wrapper>
         <Title variant="h1" fontWeight="bold">
-          Super nazwa aplikacji
+          TRIPPIE
         </Title>
         <City>
           <TextField
