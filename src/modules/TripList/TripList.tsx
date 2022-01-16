@@ -35,7 +35,11 @@ const TripList = ({ trip }: TripListProps) => {
       )}
       <P.ListElement key={i}>
         <P.Image>
-          <img src={timedPoi.poi.picture_url} alt="Brak zdjęcia" />
+          <img
+            src={timedPoi.poi.picture_url}
+            alt="Brak zdjęcia"
+            style={{ width: "100px", height: "100px" }}
+          />
         </P.Image>
         <P.Name>{timedPoi.poi.name}</P.Name>
         <P.Category>{timedPoi.poi.category}</P.Category>

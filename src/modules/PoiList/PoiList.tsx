@@ -11,7 +11,7 @@ const PoiList = ({ listOfPoi, Icon, buttonHandler }: PoiListProps) => {
   const poi = listOfPoi?.map((poi, i) => (
     <P.ListElement key={i}>
       <P.Image>
-        <img src={poi.picture_url} alt="Brak zdjęcia" />
+        <img src={poi.picture_url} alt="Brak zdjęcia" style={{ width: "100px", height: "100px" }} />
       </P.Image>
       <P.Name>{poi.name}</P.Name>
       <P.Category>{poi.category}</P.Category>
