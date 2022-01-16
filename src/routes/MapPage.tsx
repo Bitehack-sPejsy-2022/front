@@ -29,7 +29,7 @@ const MapPage = () => {
       close_hour: 0,
     };
     setPoi((oldPoi) => [...oldPoi, newPoi]);
-    postSearchNearPoint(latlng).then((result) => {
+    postSearchNearPoint(latlng, "Warszawa").then((result) => {
       const listOfPoi = result.data.list_of_poi;
       console.log(listOfPoi);
       if (listOfPoi.length) {

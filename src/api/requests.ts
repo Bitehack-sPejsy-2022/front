@@ -6,8 +6,8 @@ import { LatLng } from "leaflet";
 export const getPoiByCityName = (name: string) =>
   apiInstance.get<apiModels.GetPoiByCityReturnType>(paths.poiByCity(name));
 
-export const postSearchNearPoint = (latlng: LatLng) =>
-  apiInstance.post<apiModels.GetPoiByCityReturnType>(paths.searchNearPoint, latlng);
+export const postSearchNearPoint = (latlng: LatLng, city: string) =>
+  apiInstance.post<apiModels.GetPoiByCityReturnType>(paths.searchNearPoint, {latlng, city});
 
 export const postPlanTrip = (tripRequest: apiModels.PlanTripRequest) =>
   apiInstance.post<apiModels.RecommendedTrips>(paths.getPlannedTrips, tripRequest);
